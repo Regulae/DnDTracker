@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DnDTracker</string>
+    <string name="character_name">Character Name</string>
+    <string name="player_name">Player Name</string>
+</resources>
