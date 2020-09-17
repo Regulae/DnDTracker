@@ -5,4 +5,8 @@
     <string name="armour_class">Armour Class</string>
     <string name="initiative">Initiative</string>
     <string name="hp">HP</string>
+    <string name="current_hp">Current HP</string>
+    <string name="maximum_hp">Maximum HP</string>
+    <string name="speed">Speed</string>
+    <string name="save">Save</string>
 </resources>

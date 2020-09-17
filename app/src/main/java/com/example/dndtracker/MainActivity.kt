@@ -11,12 +11,12 @@ data class Character(
     var id: String,
     var characterName: String,
     val playerName: String,
-    var maxHealth: Short,
-    var currentHealth: Short,
-    var initiative: Short,
-    var armourClass: Short,
-    var speed: Short,
-    var level: Short,
+    var maxHealth: Int,
+    var currentHealth: Int,
+    var initiative: Int,
+    var armourClass: Int,
+    var speed: Int,
+    var level: Int,
     val npc: Boolean
 ) : Serializable
 
