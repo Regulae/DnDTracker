@@ -42,8 +42,7 @@ class CharacterAdapter(var characters: MutableList<Character>, val context: Cont
         val character =
             getItem(index) //get the data for this index
         view.characterName.text = character.characterName
-        view.playerName.text = character.playerName
-        val initiative : String = "Initiative\n" + character.initative
+        val initiative : String = "Initiative\n" + character.initiative
         val ssInitiative: SpannableString = SpannableString(initiative)
         ssInitiative.setSpan(RelativeSizeSpan(1.5f), 11, ssInitiative.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         view.initiative.text = ssInitiative
