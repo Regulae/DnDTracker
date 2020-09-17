@@ -43,8 +43,6 @@ class MainActivity : AppCompatActivity() {
         character_list.adapter = adapter
         character_list.setOnItemClickListener{parent, view, position, id ->
             val character = adapter.getItem(position)
-            Log.d(TAG, character.characterName)
-
             val intent = Intent(this, CharacterSettingsActivity::class.java)
             intent.putExtra("CHARACTER", character)
             startActivity(intent)
