@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DnDTracker</string>
+    <string name="app_name">DnD Tracker</string>
     <string name="character_name">Character Name</string>
     <string name="player_name">Player Name</string>
     <string name="armour_class">Armour Class</string>
@@ -9,4 +9,8 @@
     <string name="maximum_hp">Maximum HP</string>
     <string name="speed">Speed</string>
     <string name="save">Save</string>
+    <string name="next_player">Next Player</string>
+    <string name="clear_initiative">Clear Initiative</string>
+    <string name="long_rest">Long Rest</string>
+    <string name="add_player">Add Player</string>
 </resources>

@@ -4,6 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.Serializable
 
@@ -46,6 +49,33 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, CharacterSettingsActivity::class.java)
             intent.putExtra("CHARACTER", character)
             startActivity(intent)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId){
+            R.id.next_player -> {
+                // change order of players
+                true
+            }
+            R.id.clear_initiative -> {
+                // clear initiative
+                true
+            }
+            R.id.long_rest -> {
+                // clear initiative, set currentHp to maxHP
+                true
+            }
+            R.id.add_player -> {
+                // add new player
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }
