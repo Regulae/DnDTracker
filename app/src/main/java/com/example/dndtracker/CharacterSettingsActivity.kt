@@ -1,5 +1,6 @@
 package com.example.dndtracker
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -36,7 +37,10 @@ class CharacterSettingsActivity : AppCompatActivity() {
 
         val button: Button = findViewById(R.id.saveButton)
         button.setOnClickListener { v ->
-            Toast.makeText(v.getContext(), "Save clicked!", Toast.LENGTH_LONG).show()
+            character.initiative = initiative.text.toString().toInt();
+            Toast.makeText(v.getContext(), initiative.text.toString(), Toast.LENGTH_LONG).show()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 }

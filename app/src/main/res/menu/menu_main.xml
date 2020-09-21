@@ -9,9 +9,9 @@
         android:icon="@drawable/ic_baseline_play_arrow_24"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/clear_initiative"
+        android:id="@+id/end_fight"
         android:orderInCategory="100"
-        android:title="@string/clear_initiative"
+        android:title="@string/end_fight"
         android:icon="@drawable/ic_baseline_stop_24"
         app:showAsAction="ifRoom" />
     <item
