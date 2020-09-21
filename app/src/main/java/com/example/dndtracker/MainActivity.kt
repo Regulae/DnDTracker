@@ -49,20 +49,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+    }
+
+    override fun onStart() {
+        super.onStart()
         val requestQueue = Volley.newRequestQueue(this)
         val ENDPOINT = "https://regula-zhaw.heisch.ch/initiative-tracker/"
-        val request = StringRequest(
+        val getRequest = StringRequest(
             Request.Method.GET, ENDPOINT,
             { response ->
                 val characters_ = Klaxon().parse<Fight>(response)
-//                characters = characters_?.characterList!!
-//                characters.sortByDescending { it.initiative }
-                adapter = CharacterAdapter(characters_?.characters!!, baseContext)
+                characters = characters_?.characters!!
+                characters.sortByDescending { it.initiative }
+                adapter = CharacterAdapter(characters, baseContext)
                 character_list.adapter = adapter
             },
             { Log.e("VOLLEYERROR", it.message.toString()) }
         )
-        requestQueue.add(request)
+        requestQueue.add(getRequest)
 
         character_list.setOnItemClickListener{parent, view, position, id ->
             val character = adapter.getItem(position)
