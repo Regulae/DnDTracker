@@ -26,6 +26,7 @@ data class Character(
 class MainActivity : AppCompatActivity() {
 
     val TAG = "MainActivity"
+    lateinit var adapter: CharacterAdapter
 
     var characters = mutableListOf<Character>(
         Character("0", "Fjord", "Travis", 112, 112, 0, 17, 30, 10, false),
@@ -41,7 +42,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val adapter: CharacterAdapter = CharacterAdapter(characters, baseContext)
+        characters.sortByDescending { it.initiative }
+
+        adapter = CharacterAdapter(characters, baseContext)
 
         character_list.adapter = adapter
         character_list.setOnItemClickListener{parent, view, position, id ->
@@ -61,6 +64,10 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId){
             R.id.next_player -> {
                 // change order of players
+                val finishedPlayer: Character = characters[0]
+                characters.removeAt(0)
+                characters.add(finishedPlayer)
+                adapter.notifyDataSetChanged()
                 true
             }
             R.id.clear_initiative -> {
