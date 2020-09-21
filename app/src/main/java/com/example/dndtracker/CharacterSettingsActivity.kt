@@ -3,19 +3,17 @@ package com.example.dndtracker
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import kotlinx.android.synthetic.main.character_cell.view.*
 
 class CharacterSettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_settings)
-        val intent = intent
-        val character: Character = intent.getSerializableExtra("CHARACTER") as Character
+        val editCharactersIntent = intent
+        val character: Character = editCharactersIntent.getSerializableExtra("CHARACTER") as Character
 
         //set initial values
         val title: TextView = findViewById(R.id.title)
@@ -37,10 +35,24 @@ class CharacterSettingsActivity : AppCompatActivity() {
 
         val button: Button = findViewById(R.id.saveButton)
         button.setOnClickListener { v ->
-            character.initiative = initiative.text.toString().toInt();
-            Toast.makeText(v.getContext(), initiative.text.toString(), Toast.LENGTH_LONG).show()
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            val updatedCharacter = Character(
+                id = character.id,
+                characterName = character.characterName,
+                playerName = character.playerName,
+                initiative = initiative.text.toString().toInt(),
+                armourClass = armourClass.text.toString().toInt(),
+                currentHealth = currentHP.text.toString().toInt(),
+                maxHealth = maxHP.text.toString().toInt(),
+                speed = speed.text.toString().toInt(),
+                level = level.text.toString().toInt(),
+                npc = character.npc
+            )
+
+            Toast.makeText(v.getContext(), updatedCharacter.toString(), Toast.LENGTH_LONG).show()
+            val updateCharactersIntent = Intent(this, MainActivity::class.java)
+            editCharactersIntent.putExtra("UPDATED CHARACTER", updatedCharacter)
+            setResult(RESULT_OK, editCharactersIntent)
+            finish()
         }
     }
 }
