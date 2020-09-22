@@ -13,7 +13,8 @@ class CharacterSettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_settings)
         val editCharactersIntent = intent
-        val character: Character = editCharactersIntent.getSerializableExtra("CHARACTER") as Character
+        val character: Character =
+            editCharactersIntent.getSerializableExtra("CHARACTER") as Character
 
         //set initial values
         val title: TextView = findViewById(R.id.title)
@@ -37,38 +38,38 @@ class CharacterSettingsActivity : AppCompatActivity() {
         button.setOnClickListener { v ->
 
             //if EditText left empty, set value to 0
-            val newInitiative : Int
-            if(initiative.text.toString() == ""){
+            val newInitiative: Int
+            if (initiative.text.toString() == "") {
                 newInitiative = 0
             } else {
                 newInitiative = initiative.text.toString().toInt()
             }
-            val newArmourClass : Int
-            if(armourClass.text.toString() == ""){
+            val newArmourClass: Int
+            if (armourClass.text.toString() == "") {
                 newArmourClass = 0
             } else {
                 newArmourClass = initiative.text.toString().toInt()
             }
-            val newCurrentHP : Int
-            if(currentHP.text.toString() == ""){
+            val newCurrentHP: Int
+            if (currentHP.text.toString() == "") {
                 newCurrentHP = 0
             } else {
                 newCurrentHP = currentHP.text.toString().toInt()
             }
-            val newMaxHP : Int
-            if(maxHP.text.toString() == ""){
+            val newMaxHP: Int
+            if (maxHP.text.toString() == "") {
                 newMaxHP = 0
             } else {
                 newMaxHP = maxHP.text.toString().toInt()
             }
-            val newSpeed : Int
-            if(speed.text.toString() == ""){
+            val newSpeed: Int
+            if (speed.text.toString() == "") {
                 newSpeed = 0
             } else {
                 newSpeed = speed.text.toString().toInt()
             }
-            val newLevel : Int
-            if(level.text.toString() == ""){
+            val newLevel: Int
+            if (level.text.toString() == "") {
                 newLevel = 0
             } else {
                 newLevel = level.text.toString().toInt()
@@ -87,8 +88,6 @@ class CharacterSettingsActivity : AppCompatActivity() {
                 npc = character.npc
             )
 
-            Toast.makeText(v.getContext(), updatedCharacter.toString(), Toast.LENGTH_LONG).show()
-//            val updateCharactersIntent = Intent(this, MainActivity::class.java)
             editCharactersIntent.putExtra("UPDATED CHARACTER", updatedCharacter)
             setResult(RESULT_OK, editCharactersIntent)
             finish()

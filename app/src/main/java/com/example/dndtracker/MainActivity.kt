@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.Serializable
+import java.util.*
 
 data class Character(
     var id: String,
@@ -27,13 +28,13 @@ class MainActivity : AppCompatActivity() {
     lateinit var adapter: CharacterAdapter
 
     var characters = mutableListOf<Character>(
-        Character("0", "Fjord", "Travis", 112, 112, 0, 17, 30, 10, false),
-        Character("1", "Jester", "Laura", 92, 92, 4, 18, 30, 10, false),
-        Character("2", "Yasha Nydoorin", "Ashley", 112, 112, 2, 17, 40, 10, false),
-        Character("3","Beauregard", "Marisha", 85, 85, 5, 20, 50, 10, false),
-        Character("4", "Caleb", "Liam", 65, 65, 1, 15, 30, 10, false),
-        Character("5","Caduceus", "Taliesin", 87, 87, 1, 18, 30, 10, false),
-        Character("6", "Nott the Brave", "Sam", 81, 81, 5, 18, 35, 10, false)
+        Character(UUID.randomUUID().toString(), "Fjord", "Travis", 112, 112, 0, 17, 30, 10, false),
+        Character(UUID.randomUUID().toString(), "Jester", "Laura", 92, 92, 0, 18, 30, 10, false),
+        Character(UUID.randomUUID().toString(), "Yasha Nydoorin", "Ashley", 112, 112, 0, 17, 40, 10, false),
+        Character(UUID.randomUUID().toString(),"Beauregard", "Marisha", 85, 85, 0, 20, 50, 10, false),
+        Character(UUID.randomUUID().toString(), "Caleb", "Liam", 65, 65, 0, 15, 30, 10, false),
+        Character(UUID.randomUUID().toString(),"Caduceus", "Taliesin", 87, 87, 0, 18, 30, 10, false),
+        Character(UUID.randomUUID().toString(), "Nott the Brave", "Sam", 81, 81, 0, 18, 35, 10, false)
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
