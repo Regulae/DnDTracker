@@ -18,7 +18,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/playerName"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.8"/>
+        app:layout_constraintWidth_percent="0.8" />
 
     <TextView
         android:id="@+id/playerName"
@@ -29,7 +29,7 @@
         app:layout_constraintLeft_toRightOf="@+id/title"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.2"/>
+        app:layout_constraintWidth_percent="0.2" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_initiative"
@@ -48,7 +48,8 @@
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:inputType="text|number"
-            android:labelFor="@id/editInitiative" />
+            android:labelFor="@id/editInitiative"
+            android:selectAllOnFocus="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -68,7 +69,8 @@
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:inputType="text|number"
-            android:labelFor="@id/editArmourClass" />
+            android:labelFor="@id/editArmourClass"
+            android:selectAllOnFocus="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -88,7 +90,8 @@
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:inputType="text|number"
-            android:labelFor="@id/editCurrentHP" />
+            android:labelFor="@id/editCurrentHP"
+            android:selectAllOnFocus="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -108,7 +111,8 @@
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:inputType="text|number"
-            android:labelFor="@id/editMaxHP" />
+            android:labelFor="@id/editMaxHP"
+            android:selectAllOnFocus="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -128,7 +132,8 @@
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:inputType="text|number"
-            android:labelFor="@id/editSpeed" />
+            android:labelFor="@id/editSpeed"
+            android:selectAllOnFocus="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -148,16 +153,18 @@
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:inputType="text|number"
-            android:labelFor="@id/editLevel" />
+            android:labelFor="@id/editLevel"
+            android:selectAllOnFocus="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="@string/save"
+        app:layout_constraintTop_toBottomOf="@id/text_input_layout_speed"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
