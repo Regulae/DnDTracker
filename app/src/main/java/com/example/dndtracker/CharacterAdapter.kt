@@ -2,7 +2,6 @@ package com.example.dndtracker
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.text.Spannable
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.RelativeSizeSpan
