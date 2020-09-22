@@ -30,11 +30,55 @@ class MainActivity : AppCompatActivity() {
     var characters = mutableListOf<Character>(
         Character(UUID.randomUUID().toString(), "Fjord", "Travis", 112, 112, 0, 17, 30, 10, false),
         Character(UUID.randomUUID().toString(), "Jester", "Laura", 92, 92, 0, 18, 30, 10, false),
-        Character(UUID.randomUUID().toString(), "Yasha Nydoorin", "Ashley", 112, 112, 0, 17, 40, 10, false),
-        Character(UUID.randomUUID().toString(),"Beauregard", "Marisha", 85, 85, 0, 20, 50, 10, false),
+        Character(
+            UUID.randomUUID().toString(),
+            "Yasha Nydoorin",
+            "Ashley",
+            112,
+            112,
+            0,
+            17,
+            40,
+            10,
+            false
+        ),
+        Character(
+            UUID.randomUUID().toString(),
+            "Beauregard",
+            "Marisha",
+            85,
+            85,
+            0,
+            20,
+            50,
+            10,
+            false
+        ),
         Character(UUID.randomUUID().toString(), "Caleb", "Liam", 65, 65, 0, 15, 30, 10, false),
-        Character(UUID.randomUUID().toString(),"Caduceus", "Taliesin", 87, 87, 0, 18, 30, 10, false),
-        Character(UUID.randomUUID().toString(), "Nott the Brave", "Sam", 81, 81, 0, 18, 35, 10, false)
+        Character(
+            UUID.randomUUID().toString(),
+            "Caduceus",
+            "Taliesin",
+            87,
+            87,
+            0,
+            18,
+            30,
+            10,
+            false
+        ),
+        Character(
+            UUID.randomUUID().toString(),
+            "Nott the Brave",
+            "Sam",
+            81,
+            81,
+            0,
+            18,
+            35,
+            10,
+            false
+        )
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +90,7 @@ class MainActivity : AppCompatActivity() {
         adapter = CharacterAdapter(characters, baseContext)
 
         character_list.adapter = adapter
-        character_list.setOnItemClickListener{parent, view, position, id ->
+        character_list.setOnItemClickListener { _, _, position, _ ->
             val character = adapter.getItem(position)
             val editCharactersIntent = Intent(this, CharacterSettingsActivity::class.java)
             editCharactersIntent.putExtra("CHARACTER", character)
@@ -56,20 +100,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == 1){
-            if(resultCode == RESULT_OK){
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
                 val updatedCharacter = data!!.getSerializableExtra("UPDATED CHARACTER") as Character
                 val iterate = characters.listIterator()
-                while(iterate.hasNext()){
+                while (iterate.hasNext()) {
                     val oldCharacter = iterate.next()
-                    if(oldCharacter.id == updatedCharacter.id) iterate.set(updatedCharacter)
+                    if (oldCharacter.id == updatedCharacter.id) iterate.set(updatedCharacter)
                 }
                 characters.sortByDescending { it.initiative }
                 adapter.notifyDataSetChanged()
             }
         }
-        if(requestCode == 2){
-            if(resultCode == RESULT_OK){
+        if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
                 val createdCharacter = data!!.getSerializableExtra("CREATED CHARACTER") as Character
                 characters.add(createdCharacter)
                 characters.sortByDescending { it.initiative }
@@ -84,7 +128,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId){
+        return when (item.itemId) {
             R.id.next_player -> {
                 // change order of players
                 val finishedPlayer: Character = characters[0]
@@ -94,12 +138,29 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.end_fight -> {
-                // clear initiative and remove npcs
+                // set initiative to 0 and remove npcs
+                val iterate = characters.listIterator()
+                while (iterate.hasNext()) {
+                    val character = iterate.next()
+                    character.initiative = 0
+                    if (character.npc) {
+                        iterate.remove()
+                    }
+                }
+                characters.sortByDescending { it.initiative }
+                adapter.notifyDataSetChanged()
                 true
             }
             R.id.long_rest -> {
-                // clear initiative, set currentHp to maxHP
-
+                // set initiative to 0 and set currentHp to maxHP
+                val iterate = characters.listIterator()
+                while (iterate.hasNext()) {
+                    val character = iterate.next()
+                    character.initiative = 0
+                    character.currentHealth = character.maxHealth
+                }
+                characters.sortByDescending { it.initiative }
+                adapter.notifyDataSetChanged()
                 true
             }
             R.id.add_player -> {
