@@ -13,4 +13,7 @@
     <string name="end_fight">End Fight</string>
     <string name="long_rest">Long Rest</string>
     <string name="add_player">Add Player</string>
+    <string name="create">Create</string>
+    <string name="npc">NPC</string>
+    <string name="level">Level</string>
 </resources>

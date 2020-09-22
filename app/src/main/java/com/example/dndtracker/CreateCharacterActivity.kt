@@ -4,36 +4,30 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
+import java.util.*
 
-class CharacterSettingsActivity : AppCompatActivity() {
+class CreateCharacterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_character_settings)
-        val editCharactersIntent = intent
-        val character: Character = editCharactersIntent.getSerializableExtra("CHARACTER") as Character
+        setContentView(R.layout.activity_create_character)
 
-        //set initial values
-        val title: TextView = findViewById(R.id.title)
-        title.setText(character.characterName)
-        val playerName: TextView = findViewById(R.id.playerName)
-        playerName.setText(character.playerName)
+        val createCharacterIntent = intent
+
+        val characterName: EditText = findViewById(R.id.editCharacterName)
+        val playerName: EditText = findViewById(R.id.editPlayerName)
         val initiative: EditText = findViewById(R.id.editInitiative)
-        initiative.setText(character.initiative.toString())
         val armourClass: EditText = findViewById(R.id.editArmourClass)
-        armourClass.setText(character.armourClass.toString())
         val currentHP: EditText = findViewById(R.id.editCurrentHP)
-        currentHP.setText(character.currentHealth.toString())
         val maxHP: EditText = findViewById(R.id.editMaxHP)
-        maxHP.setText(character.maxHealth.toString())
         val speed: EditText = findViewById(R.id.editSpeed)
-        speed.setText(character.speed.toString())
         val level: EditText = findViewById(R.id.editLevel)
-        level.setText(character.level.toString())
+        val npc: CheckBox = findViewById(R.id.npcCheckBox)
 
-        val button: Button = findViewById(R.id.saveButton)
+
+        val button: Button = findViewById(R.id.createButton)
         button.setOnClickListener { v ->
 
             //if EditText left empty, set value to 0
@@ -74,23 +68,23 @@ class CharacterSettingsActivity : AppCompatActivity() {
                 newLevel = level.text.toString().toInt()
             }
 
-            val updatedCharacter = Character(
-                id = character.id,
-                characterName = character.characterName,
-                playerName = character.playerName,
+            val createdCharacter = Character(
+                id = UUID.randomUUID().toString(),
+                characterName = characterName.text.toString(),
+                playerName = playerName.text.toString(),
                 initiative = newInitiative,
                 armourClass = newArmourClass,
                 currentHealth = newCurrentHP,
                 maxHealth = newMaxHP,
                 speed = newSpeed,
                 level = newLevel,
-                npc = character.npc
+                npc = npc.isChecked
             )
 
-            Toast.makeText(v.getContext(), updatedCharacter.toString(), Toast.LENGTH_LONG).show()
+            Toast.makeText(v.getContext(), createdCharacter.toString(), Toast.LENGTH_LONG).show()
 //            val updateCharactersIntent = Intent(this, MainActivity::class.java)
-            editCharactersIntent.putExtra("UPDATED CHARACTER", updatedCharacter)
-            setResult(RESULT_OK, editCharactersIntent)
+            createCharacterIntent.putExtra("CREATED CHARACTER", createdCharacter)
+            setResult(RESULT_OK, createCharacterIntent)
             finish()
         }
     }

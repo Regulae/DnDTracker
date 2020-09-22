@@ -63,6 +63,15 @@ class MainActivity : AppCompatActivity() {
                     val oldCharacter = iterate.next()
                     if(oldCharacter.id == updatedCharacter.id) iterate.set(updatedCharacter)
                 }
+                characters.sortByDescending { it.initiative }
+                adapter.notifyDataSetChanged()
+            }
+        }
+        if(requestCode == 2){
+            if(resultCode == RESULT_OK){
+                val createdCharacter = data!!.getSerializableExtra("CREATED CHARACTER") as Character
+                characters.add(createdCharacter)
+                characters.sortByDescending { it.initiative }
                 adapter.notifyDataSetChanged()
             }
         }
@@ -93,7 +102,8 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.add_player -> {
-                // add new player
+                val createCharacterIntent = Intent(this, CreateCharacterActivity::class.java)
+                startActivityForResult(createCharacterIntent, 2);
                 true
             }
             else -> super.onOptionsItemSelected(item)
