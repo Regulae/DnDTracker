@@ -39,7 +39,7 @@ class CreateCharacterActivity : AppCompatActivity() {
             if (armourClass.text.toString() == "") {
                 newArmourClass = 0
             } else {
-                newArmourClass = initiative.text.toString().toInt()
+                newArmourClass = armourClass.text.toString().toInt()
             }
             val newCurrentHP: Int
             if (currentHP.text.toString() == "") {

@@ -3,8 +3,11 @@ package com.example.dndtracker
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.Menu
 import android.view.MenuItem
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.Serializable
 import java.util.*
@@ -27,63 +30,21 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var adapter: CharacterAdapter
 
-    var characters = mutableListOf<Character>(
-        Character(UUID.randomUUID().toString(), "Fjord", "Travis", 112, 112, 0, 17, 30, 10, false),
-        Character(UUID.randomUUID().toString(), "Jester", "Laura", 92, 92, 0, 18, 30, 10, false),
-        Character(
-            UUID.randomUUID().toString(),
-            "Yasha Nydoorin",
-            "Ashley",
-            112,
-            112,
-            0,
-            17,
-            40,
-            10,
-            false
-        ),
-        Character(
-            UUID.randomUUID().toString(),
-            "Beauregard",
-            "Marisha",
-            85,
-            85,
-            0,
-            20,
-            50,
-            10,
-            false
-        ),
-        Character(UUID.randomUUID().toString(), "Caleb", "Liam", 65, 65, 0, 15, 30, 10, false),
-        Character(
-            UUID.randomUUID().toString(),
-            "Caduceus",
-            "Taliesin",
-            87,
-            87,
-            0,
-            18,
-            30,
-            10,
-            false
-        ),
-        Character(
-            UUID.randomUUID().toString(),
-            "Nott the Brave",
-            "Sam",
-            81,
-            81,
-            0,
-            18,
-            35,
-            10,
-            false
-        )
-    )
+    var characters: MutableList<Character> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE)
+        val gson = Gson()
+        val json = sharedPreferences.getString("character list", "")
+        val type = object : TypeToken<MutableList<Character>>() {}.type
+        if (json == null || json == "") {
+            characters = mutableListOf()
+        } else {
+            characters = gson.fromJson(json, type)
+        }
 
         characters.sortByDescending { it.initiative }
 
@@ -103,12 +64,18 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 val updatedCharacter = data!!.getSerializableExtra("UPDATED CHARACTER") as Character
+                var initiativeChanged: Boolean = true
                 val iterate = characters.listIterator()
                 while (iterate.hasNext()) {
                     val oldCharacter = iterate.next()
-                    if (oldCharacter.id == updatedCharacter.id) iterate.set(updatedCharacter)
+                    if (oldCharacter.id == updatedCharacter.id) {
+                        if (oldCharacter.initiative == updatedCharacter.initiative) {
+                            initiativeChanged = false
+                        }
+                        iterate.set(updatedCharacter)
+                    }
                 }
-                characters.sortByDescending { it.initiative }
+                if (initiativeChanged) characters.sortByDescending { it.initiative }
                 adapter.notifyDataSetChanged()
             }
         }
@@ -170,5 +137,16 @@ class MainActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        val sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val gson = Gson()
+        val json = gson.toJson(characters)
+        editor.putString("character list", json)
+        editor.apply()
     }
 }
