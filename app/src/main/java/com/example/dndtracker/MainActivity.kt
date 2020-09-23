@@ -63,15 +63,19 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 val updatedCharacter = data!!.getSerializableExtra("UPDATED CHARACTER") as Character
-                var initiativeChanged: Boolean = true
+                var initiativeChanged = true
                 val iterate = characters.listIterator()
                 while (iterate.hasNext()) {
                     val oldCharacter = iterate.next()
                     if (oldCharacter.id == updatedCharacter.id) {
-                        if (oldCharacter.initiative == updatedCharacter.initiative) {
-                            initiativeChanged = false
+                        if (updatedCharacter.level == 0) {
+                            iterate.remove()
+                        } else {
+                            if (oldCharacter.initiative == updatedCharacter.initiative) {
+                                initiativeChanged = false
+                            }
+                            iterate.set(updatedCharacter)
                         }
-                        iterate.set(updatedCharacter)
                     }
                 }
                 if (initiativeChanged) characters.sortByDescending { it.initiative }

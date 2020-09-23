@@ -32,8 +32,8 @@ class CharacterSettingsActivity : AppCompatActivity() {
         val level: EditText = findViewById(R.id.editLevel)
         level.setText(character.level.toString())
 
-        val button: Button = findViewById(R.id.saveButton)
-        button.setOnClickListener { v ->
+        val saveButton: Button = findViewById(R.id.saveButton)
+        saveButton.setOnClickListener { v ->
 
             //if EditText left empty, set value to 0
             val newInitiative: Int
@@ -86,6 +86,25 @@ class CharacterSettingsActivity : AppCompatActivity() {
                 npc = character.npc
             )
 
+            editCharactersIntent.putExtra("UPDATED CHARACTER", updatedCharacter)
+            setResult(RESULT_OK, editCharactersIntent)
+            finish()
+        }
+
+        val deleteButton: Button = findViewById(R.id.deleteButton)
+        deleteButton.setOnClickListener { v ->
+            val updatedCharacter = Character(
+                id = character.id,
+                characterName = "",
+                playerName = "",
+                initiative = 0,
+                armourClass = 0,
+                currentHealth = 0,
+                maxHealth = 0,
+                speed = 0,
+                level = 0,
+                npc = false
+            )
             editCharactersIntent.putExtra("UPDATED CHARACTER", updatedCharacter)
             setResult(RESULT_OK, editCharactersIntent)
             finish()

@@ -61,7 +61,7 @@ class CreateCharacterActivity : AppCompatActivity() {
             }
             val newLevel: Int
             if (level.text.toString() == "") {
-                newLevel = 0
+                newLevel = 1
             } else {
                 newLevel = level.text.toString().toInt()
             }
