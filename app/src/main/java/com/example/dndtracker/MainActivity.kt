@@ -3,14 +3,12 @@ package com.example.dndtracker
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.view.Menu
 import android.view.MenuItem
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.Serializable
-import java.util.*
 
 data class Character(
     var id: String,
@@ -30,20 +28,21 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var adapter: CharacterAdapter
 
-    var characters: MutableList<Character> = mutableListOf()
+    private var characters: MutableList<Character> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // load character list from shared preferences
         val sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE)
         val gson = Gson()
         val json = sharedPreferences.getString("character list", "")
         val type = object : TypeToken<MutableList<Character>>() {}.type
-        if (json == null || json == "") {
-            characters = mutableListOf()
+        characters = if (json == null || json == "") {
+            mutableListOf()
         } else {
-            characters = gson.fromJson(json, type)
+            gson.fromJson(json, type)
         }
 
         characters.sortByDescending { it.initiative }
@@ -142,6 +141,7 @@ class MainActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
 
+        // save character list in shared preferences
         val sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val gson = Gson()
